@@ -71,34 +71,33 @@
       transition-timing-function: cubic-bezier(0, 2.54, 0.58, 1);
 
     }
-
-    .hour-hand {
-      
-    }
-
-    .min-hand {
-      
-    }
-
-    .second-hand {
-      
-    }
   </style>
 
   <script>
+    let secondHand = document.querySelector('.second-hand')
+    let minuteHand = document.querySelector('.min-hand')
+    let hourHand = document.querySelector('.hour-hand')
 
-let today = new Date()
+    function setDate() {
+      let today = new Date()
+      let seconds = today.getSeconds()
+      let secondsDeg = ((seconds / 60) * 360) + 90
+      secondHand.style.transform = `rotate(${secondsDeg}deg)`
 
-let hour = today.getHours()
-let minutes = today.getMinutes()
-let seconds = today.getSeconds()
-console.log(hour)
-console.log(minutes)
-console.log(seconds)
+      let minutes = today.getMinutes()
+      let minutesDeg = ((((minutes / 60) * 360) + 90) + seconds / 12)
+      minuteHand.style.transform = `rotate(${minutesDeg}deg)`
 
-let hourHand = document.querySelector('.hour-hand')
-let hourStyle = getComputedStyle(hourHand)
-console.log(hourStyle.rotate  + 10)
+      let hours = today.getHours()
+      let hoursDeg = (((hours / 60) * 360) + 90) + minutes / 12
+      hourHand.style.transform = `rotate(${hoursDeg}deg)`
+
+    }
+    setInterval(setDate, 1000);
+
+
+
+
 
   </script>
 </body>
